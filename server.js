@@ -1,37 +1,38 @@
 'use-strict';
-let SpotifyWebApi = require('spotify-web-api-node');
-let config = require('./config');
-let l = require("lyric-get");
+var SpotifyWebApi = require('spotify-web-api-node');
+var config = require('./config');
+var l = require("lyric-get");
 
-let scopes = ['user-read-playback-state'],
-    state = 'spotify_auth_state';
+var scopes = ['user-read-playback-state'],
+		state = 'spotify_auth_state';
+
+
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
-let spotifyApi = new SpotifyWebApi({
+var spotifyApi = new SpotifyWebApi({
   redirectUri : config.redirectUri,
   clientId : config.clientId,
   clientSecret : config.clientSecret
 });
 
 // Create and open the authorization URL
-let authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
 let opn = require('opn');
 opn(authorizeURL);
 
 
-let express = require('express');
-let bodyParser = require('body-parser');
-let cors = require('cors')
-let app = express();
-let router = express.Router();
+var express = require('express');
+var bodyParser = require('body-parser');
+var cors = require('cors')
+var app = express();
+var router = express.Router();
 
-let port = config.port;
+var port = config.port;
 
 //now we should configure the API to use bodyParser and look for 
 //JSON data in the request body
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
-
 
 //now we can set the route path & initialize the API
 router.get('/', function(req, res) {
@@ -42,7 +43,7 @@ router.get('/', function(req, res) {
 	  	let name = temp[0], artist = temp[1];
 		l.get(artist, name, function(err, lyrics){
 			res.type('text/html');
-			res.write('<head><title>Spotify Lyrics</title></head>');
+			res.write('<head><title>Shaunify</title></head>');
 	    	res.write('<center>');
 			res.write('<h3>' + artist + ' - ' + name + '</h3>');
 		    if(err){

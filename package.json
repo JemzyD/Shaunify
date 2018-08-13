@@ -1,13 +1,13 @@
 {
   "name": "spotify-lyrics",
   "version": "1.0.0",
-  "description": "run a server that automatically detects the song being played on spotify and displays its lyrics",
+  "description": "detects song and renders lyrics on screen",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Wali",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
